@@ -5,8 +5,16 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 
+from flask_jwt_extended import create_access_token
+# from flask_jwt_extended import get_jwt_identity
+# from flask_jwt_extended import jwt_required
+# from flask_jwt_extended import JWTManager
+
 
 api = Blueprint('api', __name__)
+
+
+
 
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -42,49 +50,24 @@ def handle_sign_up():
 
     return jsonify(response_body), 200
 
-# @api.route('/token', method=['POST'])
-# def handle_token_request():
-#     recieved_data = request.get_json()
-#     print(recieved_data)
-
-#     # current_user = User.query.filter_by(email=recieved_data["email"]).first()
-#     # print(current_user)
-
-#     # if current_user:
-#     #     # if current_user.check_password(current_user["password"]):
-#     #     if current_user.password == current_user["password"]:
-#     #         print("TOKEN HERE!")
-#     #     else:
-#     #         print("WRONG PASSWORD")
-#     # else:
-#     #     print("EMAIL DOESNT EXIST")
-
-#     response_body = {
-#         "message": "trying for a token eh?"
-#     }
-
-#     return jsonify(response_body), 200
 
 @api.route('/token', methods=['POST'])
 def handle_token_request():
-    # Process the information coming from the client
     recieved_data = request.get_json()
     print(recieved_data)
-    
-    # We create an instance without being recorded in the database
+
     current_user = User.query.filter_by(email=recieved_data["email"]).first() #sets user to active user to be saved into favorite
-    # current_user = {"password": "1234"}
     print(current_user)
 
     if current_user:
-        # if current_user.check_password(current_user["password"]):
-        if current_user.password == recieved_data["password"]:
+        if current_user.check_password(recieved_data["password"]):
             print("TOKEN HERE!")
+            access_token = create_access_token(identity=current_user.email)
+            print(access_token) # Need to save in local storage
         else:
             print("WRONG PASSWORD")
     else:
         print("EMAIL DOESNT EXIST")
     
-    # Notice that we are passing in the actual sqlalchemy user object here
 
     return jsonify("after a token eh?")
