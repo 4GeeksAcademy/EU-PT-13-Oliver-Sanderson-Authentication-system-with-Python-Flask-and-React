@@ -54,10 +54,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify({email: email, password: password}),
 					})
 					.then((recieved) => recieved.json())
-					.then((data) => console.log(data))
+					.then((data) => {console.log(data.access_token); localStorage.setItem("token", data.access_token)})
 					.catch((error) => console.log(error))
 			},
-			test: () => {console.log("spicy sausage")}
+			test: () => {console.log("spicy sausage"); localStorage.setItem("myCat", "Tom")}
 		}
 	};
 };

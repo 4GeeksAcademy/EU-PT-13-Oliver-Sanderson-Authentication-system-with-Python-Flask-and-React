@@ -18,7 +18,8 @@ export const Home = () => {
 			<input id="email" onChange={event => setInputEmail(event.target.value)}/>
 			<label for="email">Password</label>
 			<input id="password" onChange={event => setInputPassword(event.target.value)} type="password"/>
-			<button onClick={() => actions.login(inputEmail, inputPassword)} >TEST</button>
+			<button onClick={() => actions.login(inputEmail, inputPassword)} >Login</button>
+			<button onClick={() => actions.test()} >TEST</button>
 			<div className="alert alert-info">
 				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
 			</div>
