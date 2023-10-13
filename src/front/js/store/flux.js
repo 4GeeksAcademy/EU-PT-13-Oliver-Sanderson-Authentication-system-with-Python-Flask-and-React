@@ -46,7 +46,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+			login: (email, password) => {
+					fetch(process.env.BACKEND_URL + "/api/token", {
+						method: "POST",
+						headers: {"Content-Type": "application/json"},
+						body: JSON.stringify({email: email, password: password}),
+					})
+					.then((recieved) => recieved.json())
+					.then((data) => console.log(data))
+					.catch((error) => console.log(error))
+			},
+			test: () => {console.log("spicy sausage")}
 		}
 	};
 };

@@ -64,10 +64,18 @@ def handle_token_request():
             print("TOKEN HERE!")
             access_token = create_access_token(identity=current_user.email)
             print(access_token) # Need to save in local storage
+            return jsonify(access_token=access_token)
+            
         else:
             print("WRONG PASSWORD")
+            response_body = {
+                "message": "Password incorrect."
+            }
     else:
         print("EMAIL DOESNT EXIST")
+        response_body = {
+            "message": "Email doesn't exist on system."
+        }
     
 
-    return jsonify("after a token eh?")
+    return jsonify(response_body), 200
