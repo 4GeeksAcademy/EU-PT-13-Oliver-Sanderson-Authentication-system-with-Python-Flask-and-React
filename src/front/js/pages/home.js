@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 
 export const Home = () => {
@@ -12,35 +11,49 @@ export const Home = () => {
 
 	return (
 		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<h2>Sign Up</h2>
-			<label for="signUpEmail">Email</label>
-			<input id="signUpEmail" onChange={event => setSignUpEmail(event.target.value)}/>
-			<label for="signUpPassword">Password</label>
-			<input id="signUpPassword" onChange={event => setSignUpPassword(event.target.value)} type="password"/>
-			<button onClick={() => actions.signUp(signUpEmail, signUpPassword)} >Sign Up</button>
-			<h2>Login</h2>
-			<label for="email">Email</label>
-			<input id="email" onChange={event => setInputEmail(event.target.value)}/>
-			<label for="password">Password</label>
-			<input id="password" onChange={event => setInputPassword(event.target.value)} type="password"/>
-			<button onClick={() => actions.login(inputEmail, inputPassword)} >Login</button>
-			<button onClick={() => actions.test()} >TEST</button>
-			<h2>Private info</h2>
+			<div className="container border border-secondary">
+				<h2>Sign Up</h2>
+				<div className="row">
+					<label className="col-5" for="signUpEmail">Email</label>
+					<label className="col-5" for="signUpPassword">Password</label>
+				</div>
+				<div className="row">
+					<input className="col-5" id="signUpEmail" onChange={event => setSignUpEmail(event.target.value)}/>
+					<input className="col-5" id="signUpPassword" onChange={event => setSignUpPassword(event.target.value)} type="password"/>
+					<button className="btn btn-primary col-2" onClick={() => actions.signUp(signUpEmail, signUpPassword)} >Sign Up</button>
+				</div>
+			</div>
+
+			<div className="container border border-secondary">
+				<h2>Login</h2>
+				<div className="row">
+					<label className="col-5" for="inputEmail">Email</label>
+					<label className="col-5" for="inputPassword">Password</label>
+				</div>
+				<div className="row">
+					<input className="col-5" id="inputEmail" onChange={event => setInputEmail(event.target.value)}/>
+					<input className="col-5" id="inputPassword" onChange={event => setInputPassword(event.target.value)} type="password"/>
+					<button className="btn btn-primary col-2" onClick={() => console.log(actions.login(inputEmail, inputPassword))} >Login</button>
+				</div>
+			</div>
+			
+			<div className="container border border-secondary">
+				<h2>Private info</h2>
+				<button className="btn btn-primary" onClick={() => actions.unlock()} >Show secret message</button>
+			</div>
+
+			{/* <h2>Private info</h2>
 			<label id="priateId">Private...</label>
 			<button onClick={() => actions.unlock()} >Unlock</button>
 			<div className="alert alert-info">
 				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
+			</div> */}
+			{/* <p>
 				This boilerplate comes with lots of documentation:{" "}
 				<a href="https://start.4geeksacademy.com/starters/react-flask">
 					Read documentation
 				</a>
-			</p>
+			</p> */}
 		</div>
 	);
 };

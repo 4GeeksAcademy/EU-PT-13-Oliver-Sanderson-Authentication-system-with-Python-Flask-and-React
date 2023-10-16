@@ -56,7 +56,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.then((recieved) => recieved.json())
 					.then((data) => {
-						console.log(data.access_token); 
+						if (data.message){
+							alert(data.message)
+						} else {
+							alert("Logged in")
+						}
+						console.log(data); 
 						localStorage.setItem("token", data.access_token);
 						sessionStorage.setItem("token", data.access_token);
 						setStore({ token: data.access_token })
@@ -73,7 +78,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then((data) => {console.log(data)})
 				.catch((error) => console.log(error))
 		},
-		// "Missing 'Bearer' type in 'Authorization' header. Expected 'Authorization: Bearer <JWT>'"
 		unlock: () => {
 			console.log("UNLOCK RAN")
 			const store = getStore();
@@ -82,10 +86,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				headers: {"Authorization": "Bearer " + store.token}
 			})
 			.then((recieved) => recieved.json())
-			.then((data) => {console.log(data)})
+			.then((data) => {
+				if (data["secret"]){
+					alert("The secret message is: " + data["secret"])
+				} else {
+					alert("You are not authorised to view the secret message!")
+				}
+				return data
+			})
 			.catch((error) => console.log(error))
 		},
-			test: () => {console.log("spicy sausage"); localStorage.setItem("myCat", "Tom")}
+
 		}
 	};
 };

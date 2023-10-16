@@ -5,6 +5,8 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 
+
+
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
@@ -80,12 +82,11 @@ def handle_token_request():
 
     return jsonify(response_body), 200
 
-# EXAMPLE CODE BELOW
+
 @api.route("/me", methods=["GET"])
 @jwt_required()
 def load_profile():
-    # We can now access our sqlalchemy User object via `current_user`.
 
     return jsonify(
-        sercret="SERCT¿ET MESAGEGEG"
+        secret="Spicy chorizo is better than sweet chorizo!"
     )
