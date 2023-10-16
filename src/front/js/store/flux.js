@@ -13,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			token: null
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -54,9 +55,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify({email: email, password: password}),
 					})
 					.then((recieved) => recieved.json())
-					.then((data) => {console.log(data.access_token); localStorage.setItem("token", data.access_token)})
+					.then((data) => {
+						console.log(data.access_token); 
+						localStorage.setItem("token", data.access_token);
+						sessionStorage.setItem("token", data.access_token);
+						setStore({ token: data.access_token })
+					})
 					.catch((error) => console.log(error))
 			},
+			signUp: (email, password) => {
+				fetch(process.env.BACKEND_URL + "/api/sign_up", {
+					method: "POST",
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({email: email, password: password}),
+				})
+				.then((recieved) => recieved.json())
+				.then((data) => {console.log(data)})
+				.catch((error) => console.log(error))
+		},
+		// "Missing 'Bearer' type in 'Authorization' header. Expected 'Authorization: Bearer <JWT>'"
+		unlock: () => {
+			console.log("UNLOCK RAN")
+			const store = getStore();
+			fetch(process.env.BACKEND_URL + "/api/me", {
+				method: "GET",
+				headers: {"Authorization": "Bearer " + store.token}
+			})
+			.then((recieved) => recieved.json())
+			.then((data) => {console.log(data)})
+			.catch((error) => console.log(error))
+		},
 			test: () => {console.log("spicy sausage"); localStorage.setItem("myCat", "Tom")}
 		}
 	};

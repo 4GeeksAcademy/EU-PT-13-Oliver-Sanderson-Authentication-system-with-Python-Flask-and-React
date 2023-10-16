@@ -6,9 +6,9 @@ from api.models import db, User
 from api.utils import generate_sitemap, APIException
 
 from flask_jwt_extended import create_access_token
-# from flask_jwt_extended import get_jwt_identity
-# from flask_jwt_extended import jwt_required
-# from flask_jwt_extended import JWTManager
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
 
 
 api = Blueprint('api', __name__)
@@ -62,10 +62,10 @@ def handle_token_request():
     if current_user:
         if current_user.check_password(recieved_data["password"]):
             print("TOKEN HERE!")
-            access_token = create_access_token(identity=current_user.email)
-            print(access_token) # Need to save in local storage
+            access_token = create_access_token(identity=current_user.serialize())
+            print(access_token) 
             return jsonify(access_token=access_token)
-            
+
         else:
             print("WRONG PASSWORD")
             response_body = {
@@ -79,3 +79,13 @@ def handle_token_request():
     
 
     return jsonify(response_body), 200
+
+# EXAMPLE CODE BELOW
+@api.route("/me", methods=["GET"])
+@jwt_required()
+def load_profile():
+    # We can now access our sqlalchemy User object via `current_user`.
+
+    return jsonify(
+        sercret="SERCT¿ET MESAGEGEG"
+    )
