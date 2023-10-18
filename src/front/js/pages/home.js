@@ -33,8 +33,10 @@ export const Home = () => {
 				<div className="row">
 					<input className="col-5" id="inputEmail" onChange={event => setInputEmail(event.target.value)}/>
 					<input className="col-5" id="inputPassword" onChange={event => setInputPassword(event.target.value)} type="password"/>
-					<button className="btn btn-primary col-2" onClick={() => console.log(actions.login(inputEmail, inputPassword))} >Login</button>
+					<button className="btn btn-primary col-1" onClick={() => console.log(actions.login(inputEmail, inputPassword))} >Login</button>
+					<button className="btn btn-danger col-1" onClick={() => console.log(actions.logout())} >Logout</button>
 				</div>
+				
 			</div>
 			
 			<div className="container border border-secondary">
@@ -42,18 +44,6 @@ export const Home = () => {
 				<button className="btn btn-primary" onClick={() => actions.unlock()} >Show secret message</button>
 			</div>
 
-			{/* <h2>Private info</h2>
-			<label id="priateId">Private...</label>
-			<button onClick={() => actions.unlock()} >Unlock</button>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div> */}
-			{/* <p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p> */}
 		</div>
 	);
 };

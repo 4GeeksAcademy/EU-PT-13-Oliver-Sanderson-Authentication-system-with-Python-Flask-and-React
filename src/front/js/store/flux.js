@@ -63,10 +63,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 						console.log(data); 
 						localStorage.setItem("token", data.access_token);
-						sessionStorage.setItem("token", data.access_token);
 						setStore({ token: data.access_token })
 					})
 					.catch((error) => console.log(error))
+			},
+			logout: () => {
+				setStore({ token: "" })
+				alert("Logged out.")
 			},
 			signUp: (email, password) => {
 				fetch(process.env.BACKEND_URL + "/api/sign_up", {
