@@ -68,11 +68,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch((error) => console.log(error))
 			},
+
+			login2: (email, password) => {
+
+				return new Promise((resolve) => {
+					fetch(process.env.BACKEND_URL + "/api/token", {
+						method: "POST",
+						headers: {"Content-Type": "application/json"},
+						body: JSON.stringify({email: email, password: password}),
+					})
+					.then((recieved) => { 
+						console.log(recieved)
+						return recieved.json()
+					})
+					.then((data) => {
+						console.log(data)
+						if (data["message"]){
+							resolve(false)
+						} else {
+							localStorage.setItem("token", data.access_token);
+							setStore({ token: data.access_token })
+							resolve(true); 
+						}
+					})
+					.catch((error) => console.log("THERE WAS AN ERROR : " + error))
+				  });
+
+
+			},
+
 			logout: () => {
 				setStore({ token: "" })
 				alert("Logged out.")
 			},
-			signUp: (email, password) => {
+
+		signUp: (email, password) => {
 				fetch(process.env.BACKEND_URL + "/api/sign_up", {
 					method: "POST",
 					headers: {"Content-Type": "application/json"},
@@ -82,6 +112,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then((data) => {console.log(data)})
 				.catch((error) => console.log(error))
 		},
+
+		signUp2: (email, password) => {
+			fetch(process.env.BACKEND_URL + "/api/sign_up", {
+				method: "POST",
+				headers: {"Content-Type": "application/json"},
+				body: JSON.stringify({email: email, password: password}),
+			})
+			.then((recieved) => recieved.json())
+			.then((data) => {console.log(data)})
+			.catch((error) => console.log(error))
+		},
+
 		unlock: () => {
 			console.log("UNLOCK RAN")
 			const store = getStore();
@@ -102,6 +144,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 			})
 			.catch((error) => console.log(error))
 		},
+
+		test: () => {
+			console.log("TEST RAN")
+
+			
+			const fetchPromise = fetch(
+				"https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+			  );
+			  
+			  fetchPromise
+				.then((response) => {
+				  if (!response.ok) {
+					throw new Error(`HTTP error: ${response.status}`);
+				  }
+				  return response.json();
+				})
+				.then((data) => {
+				  console.log(data);
+				  return data
+				});
+		},
+
+		test2: fetch(
+			"https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
+		  )
 
 		}
 	};
