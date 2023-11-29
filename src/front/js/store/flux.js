@@ -60,10 +60,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 							alert(data.message)
 						} else {
 							alert("Logged in")
+							localStorage.setItem("token", data.access_token);
+							setStore({ token: data.access_token })
 						}
 						console.log(data); 
-						localStorage.setItem("token", data.access_token);
-						setStore({ token: data.access_token })
+
 					})
 					.catch((error) => console.log(error))
 			},
@@ -92,8 +93,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			.then((data) => {
 				if (data["secret"]){
 					alert("The secret message is: " + data["secret"])
+					return true
 				} else {
 					alert("You are not authorised to view the secret message!")
+					return false
 				}
 				return data
 			})
