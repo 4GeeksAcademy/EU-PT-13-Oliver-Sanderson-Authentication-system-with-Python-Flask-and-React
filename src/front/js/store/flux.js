@@ -48,28 +48,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
+
 			login: (email, password) => {
-					fetch(process.env.BACKEND_URL + "/api/token", {
-						method: "POST",
-						headers: {"Content-Type": "application/json"},
-						body: JSON.stringify({email: email, password: password}),
-					})
-					.then((recieved) => recieved.json())
-					.then((data) => {
-						if (data.message){
-							alert(data.message)
-						} else {
-							alert("Logged in")
-							localStorage.setItem("token", data.access_token);
-							setStore({ token: data.access_token })
-						}
-						console.log(data); 
-
-					})
-					.catch((error) => console.log(error))
-			},
-
-			login2: (email, password) => {
 
 				return new Promise((resolve) => {
 					fetch(process.env.BACKEND_URL + "/api/token", {
@@ -103,18 +83,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 		signUp: (email, password) => {
-				fetch(process.env.BACKEND_URL + "/api/sign_up", {
-					method: "POST",
-					headers: {"Content-Type": "application/json"},
-					body: JSON.stringify({email: email, password: password}),
-				})
-				.then((recieved) => recieved.json())
-				.then((data) => {console.log(data)})
-				.catch((error) => console.log(error))
-		},
-
-		signUp2: (email, password) => {
-			console.log("SIGNUP 2")
 			return new Promise((resolve) => {
 
 				fetch(process.env.BACKEND_URL + "/api/sign_up", {
@@ -158,31 +126,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			})
 			.catch((error) => console.log(error))
 		},
-
-		test: () => {
-			console.log("TEST RAN")
-
-			
-			const fetchPromise = fetch(
-				"https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
-			  );
-			  
-			  fetchPromise
-				.then((response) => {
-				  if (!response.ok) {
-					throw new Error(`HTTP error: ${response.status}`);
-				  }
-				  return response.json();
-				})
-				.then((data) => {
-				  console.log(data);
-				  return data
-				});
-		},
-
-		test2: fetch(
-			"https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json",
-		  )
 
 		}
 	};

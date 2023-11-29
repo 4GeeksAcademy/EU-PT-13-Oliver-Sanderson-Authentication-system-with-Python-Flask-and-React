@@ -15,7 +15,7 @@ export const SignUp = () => {
 	let alertBoxItem = document.getElementById("alertBox")
 
 	async function signupClicked() {
-		if(await actions.signUp2(signUpEmail, signUpPassword)) {
+		if(await actions.signUp(signUpEmail, signUpPassword)) {
 			alertBoxItem.hidden = false
 			setType("success")
 			setAlertMessage("User created!")

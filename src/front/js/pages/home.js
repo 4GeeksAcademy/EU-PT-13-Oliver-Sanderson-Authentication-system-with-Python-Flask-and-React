@@ -5,12 +5,9 @@ import "../../styles/home.css";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
-	const [inputEmail, setInputEmail] = useState("");
-	const [inputPassword, setInputPassword] = useState("");
 	const [signupNavigate, setSignupNavigate] = useState(false);
 	const [loginNavigate, setLoginNavigate] = useState(false);
 	const [privateNavigate, setPrivateNavigate] = useState(false);
-	const [food, setFood] = useState("None")
 
 	if (signupNavigate) {
 		return <Navigate to="/signup" />
@@ -31,32 +28,12 @@ export const Home = () => {
 				<button className="btn btn-primary m-2" onClick={() => setSignupNavigate(true)}>Sign Up</button>
 				<button className="btn btn-primary m-2" onClick={() => setLoginNavigate(true)}>Login</button>
 				<button className="btn btn-danger m-2" onClick={() => setPrivateNavigate(true)}>Private</button>
-				<button className="btn btn-danger m-2" onClick={() => console.log(actions.logout())} >Logout</button>
 			</div>
 			
 			<div className="container border border-secondary">
 				<h2>Home Page</h2>
 				<p>Some information about the website suitable for the homepage. Welcome text or information about the product for new users.</p>
 			</div>
-			<button className="btn btn-secondary" onClick={async () => {
-					
-					await actions.test2
-					.then((response) => {
-					if (!response.ok) {
-						throw new Error(`HTTP error: ${response.status}`);
-					}
-					return response.json();
-					})
-					.then((data) => {
-					console.log(data);
-					setFood(data[0].name)
-					return data
-					});
-
-
-					} }>TEST BUTTON</button>
-					<p>{food}</p>
-
 		</div>
 	);
 };

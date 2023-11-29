@@ -15,7 +15,7 @@ export const Login = () => {
 	let alertBoxItem = document.getElementById("alertBox")
 
 	async function loginClicked() {
-		if(await actions.login2(inputEmail, inputPassword)) {
+		if(await actions.login(inputEmail, inputPassword)) {
 			setPrivateNavigate(true)
 		} else {
 			alertBoxItem.hidden = false
