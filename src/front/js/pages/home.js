@@ -10,6 +10,7 @@ export const Home = () => {
 	const [signupNavigate, setSignupNavigate] = useState(false);
 	const [loginNavigate, setLoginNavigate] = useState(false);
 	const [privateNavigate, setPrivateNavigate] = useState(false);
+	const [food, setFood] = useState("None")
 
 	if (signupNavigate) {
 		return <Navigate to="/signup" />
@@ -37,6 +38,24 @@ export const Home = () => {
 				<h2>Home Page</h2>
 				<p>Some information about the website suitable for the homepage. Welcome text or information about the product for new users.</p>
 			</div>
+			<button className="btn btn-secondary" onClick={async () => {
+					
+					await actions.test2
+					.then((response) => {
+					if (!response.ok) {
+						throw new Error(`HTTP error: ${response.status}`);
+					}
+					return response.json();
+					})
+					.then((data) => {
+					console.log(data);
+					setFood(data[0].name)
+					return data
+					});
+
+
+					} }>TEST BUTTON</button>
+					<p>{food}</p>
 
 		</div>
 	);
