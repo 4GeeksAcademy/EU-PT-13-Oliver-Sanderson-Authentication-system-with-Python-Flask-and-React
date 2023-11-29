@@ -114,14 +114,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 
 		signUp2: (email, password) => {
-			fetch(process.env.BACKEND_URL + "/api/sign_up", {
-				method: "POST",
-				headers: {"Content-Type": "application/json"},
-				body: JSON.stringify({email: email, password: password}),
-			})
-			.then((recieved) => recieved.json())
-			.then((data) => {console.log(data)})
-			.catch((error) => console.log(error))
+			console.log("SIGNUP 2")
+			return new Promise((resolve) => {
+
+				fetch(process.env.BACKEND_URL + "/api/sign_up", {
+					method: "POST",
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({email: email, password: password}),
+				})
+				.then((recieved) => {
+					 console.log(recieved);
+					if(recieved.ok) {
+						return recieved.json()
+					} else {
+						resolve(false)
+					}; return recieved.json()
+					})
+				.then((data) => {console.log(data); resolve(true)})
+				.catch((error) => resolve(false))
+
+			  });
+
+
 		},
 
 		unlock: () => {

@@ -24,7 +24,7 @@ export const Private = () => {
 			<div className="container border border-secondary">
 				<div className="d-flex d-flex justify-content-start">
 					<button className="btn btn-danger m-2" onClick={() => setHomeNavigate(true)} >Home</button>
-					<button className="btn btn-danger col-1" onClick={() => {actions.logout(); setHomeNavigate(true)}} >Logout</button>
+					<button className="btn btn-danger col-1 m-2" onClick={() => {actions.logout(); setHomeNavigate(true)}} >Logout</button>
 				</div>
 				<h2>Private</h2>
 				<p>Users personal data</p>
